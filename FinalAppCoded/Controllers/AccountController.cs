@@ -106,6 +106,7 @@ namespace FinalAppCoded.Controllers
 
         public IActionResult Test()
         {
+            ViewBag.test = "asd";
             return View();
         }
         #endregion
