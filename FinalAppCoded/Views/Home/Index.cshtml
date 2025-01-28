@@ -1,0 +1,146 @@
+﻿@model CatCourseEventsViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- course area start -->
+<section class="course__area pt-115 pb-120 grey-bg">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-xxl-5 col-xl-6 col-lg-6">
+                <div class="section__title-wrapper mb-60">
+                    <h2 class="section__title">Find the Right<br>Online <span class="yellow-bg yellow-bg-big">Course<img src="assets/img/shape/yellow-bg.png" alt=""></span> for you</h2>
+                    <p>You don't have to struggle alone, you've got our assistance and help.</p>
+                </div>
+            </div>
+            <div class="col-xxl-7 col-xl-6 col-lg-6">
+                <div class="course__menu d-flex justify-content-lg-end mb-60">
+                    <div class="masonary-menu filter-button-group">
+                        <button class="active" data-filter="*">
+                            See All
+                            <span class="tag">new</span>
+                        </button>
+                        <button data-filter=".cat1">Trending</button>
+                        <button data-filter=".cat2">Popularity</button>
+                        <button data-filter=".cat3">Featured</button>
+                        <button data-filter=".cat4">Art & Design</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row grid">
+            @foreach (var item in Model.Coruses!)
+            {
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 grid-item cat1 cat2 cat4">
+                    <div class="course__item white-bg mb-30 fix">
+                        <div class="course__thumb w-img p-relative fix">
+                            <a href="course-details.html">
+                                <img src="~/assets/img/course/course-1.jpg" alt="">
+                            </a>
+                            <div class="course__tag">
+                                <a href="#">@item.Category!.Name</a>
+                            </div>
+                        </div>
+                        <div class="course__content">
+                            <div class="course__meta d-flex align-items-center justify-content-between">
+                                <div class="course__lesson">
+                                    <span><i class="far fa-book-alt"></i>@item.Lessons Lesson</span>
+                                </div>
+                                <div class="course__rating">
+                                    <span><i class="icon_star"></i>4.5 (44)</span>
+                                </div>
+                            </div>
+                            <h3 class="course__title">
+                                <a asp-action="CourseDetails" asp-controller="Home" asp-route-id="@item.CourseId">
+                                    @item.CourseTitle .
+                                </a>
+                            </h3>
+                            <div class="course__teacher d-flex align-items-center">
+                                <div class="course__teacher-thumb mr-15">
+                                    <img src="~/assets/img/course/teacher/teacher-1.jpg" alt="">
+                                </div>
+                                <h6><a href="instructor-details.html">@item.Instructor</a></h6>
+                            </div>
+                        </div>
+                        <div class="course__more d-flex justify-content-between align-items-center">
+                            <div class="course__status">
+                                @if (item.Price == 0)
+                                {
+                                    <span>Free</span>
+                                }
+                                else
+                                {
+                                    <span>@item.Price</span>
+
+                                }
+                            </div>
+                            <div class="course__btn">
+                                <a asp-action="CourseDetails"
+                                   asp-controller="Home"
+                                   asp-route-id="@item.CourseId"
+                                   class="link-btn">
+                                    Know Details
+
+                                    <i class="far fa-arrow-right"></i>
+                                    <i class="far fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</section>
+<!-- course area end -->
+<!-- events area start -->
+<section class="events__area pt-115 pb-120 p-relative">
+    <div class="events__shape">
+        <img class="events-1-shape" src="~/assets/img/events/events-shape.png" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-4 offset-xxl-4">
+                <div class="section__title-wrapper mb-60 text-center">
+                    <h2 class="section__title">Current <span class="yellow-bg yellow-bg-big">Events<img src="assets/img/shape/yellow-bg.png" alt=""></span></h2>
+                    <p>We found @Model.Events!.Count events available for you.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Events.OrderByDescending(x=>x.Id).Take(4))
+            {
+                <div class="col-xxl-10 offset-xxl-1 col-xl-10 offset-xl-1 col-lg-10 offset-lg-1">
+                    <div class="events__item mb-10 hover__active">
+                        <div class="events__item-inner d-sm-flex align-items-center justify-content-between white-bg">
+                            <div class="events__content">
+                                <div class="events__meta">
+                                    <span>@item.EventSDate.ToShortDateString()</span>
+                                    <span>@item.EventTime </span>
+                                    <span>@item.Venue</span>
+                                </div>
+                                <h3 class="events__title">
+                                <a asp-action="EventDetails" 
+                                   asp-controller="Home" 
+                                   asp-route-id="@item.Id"> @item.Title</a></h3>
+                            </div>
+                            <div class="events__more">
+                                <a asp-action="EventDetails" 
+                                   asp-controller="Home" 
+                                   asp-route-id="@item.Id" class="link-btn">
+                                    View More
+                                    <i class="far fa-arrow-right"></i>
+                                    <i class="far fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</section>
+<!-- events area end -->
