@@ -103,6 +103,11 @@ namespace FinalAppCoded.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Test()
+        {
+            return View();
+        }
         #endregion
 
     }
